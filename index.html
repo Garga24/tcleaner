@@ -63,15 +63,18 @@
 
     <h3>3.1 Storage Permissions</h3>
     <ul>
-        <li><strong>MANAGE_EXTERNAL_STORAGE</strong> (Android 11+): Required to scan files across all directories on your device to find flight tickets and boarding passes.</li>
-        <li><strong>READ_EXTERNAL_STORAGE</strong> (Android 10 and below): Required to access files for scanning.</li>
+        <li><strong>MANAGE_EXTERNAL_STORAGE</strong> (Android 11+): Required to scan files across all directories in your device's internal storage to find flight tickets and boarding passes.</li>
+        <li><strong>READ_EXTERNAL_STORAGE</strong> (Android 10 and below): Required to access files in your device's internal storage for scanning.</li>
         <li><strong>WRITE_EXTERNAL_STORAGE</strong>: Required to move files to the trash bin when you choose to delete tickets.</li>
     </ul>
+    <p>
+        <strong>Note:</strong> The app only accesses your device's internal storage. External SD cards are not scanned.
+    </p>
     <p>
         <strong>How we use these permissions:</strong>
     </p>
     <ul>
-        <li>We only scan PDF and image files (JPG, PNG, etc.)</li>
+        <li>We only scan PDF and image files (JPG, PNG, etc.) from your device's internal storage</li>
         <li>Files are read locally on your device for ticket detection</li>
         <li>Files are never modified without your explicit action</li>
         <li>Files are only deleted when you choose to delete them</li>
@@ -83,11 +86,6 @@
         <li><strong>POST_NOTIFICATIONS</strong>: Used to notify you when background scans find new flight tickets or boarding passes.</li>
     </ul>
 
-    <h3>3.3 Alarm Permissions</h3>
-    <ul>
-        <li><strong>SCHEDULE_EXACT_ALARM</strong> and <strong>USE_EXACT_ALARM</strong>: Used to schedule periodic background scans when your device is idle (every 4 hours).</li>
-    </ul>
-
     <h2>4. Data Collection and Storage</h2>
     <p>
         Ticket Cleaner stores the following data locally on your device only:
@@ -95,22 +93,21 @@
 
     <h3>4.1 Scan Results Database</h3>
     <p>
-        We maintain a local SQLite database on your device that stores:
+        We maintain a local database on your device that stores:
     </p>
     <ul>
-        <li>File paths and file hashes (SHA-256) for scanned files</li>
-        <li>Last modification timestamps</li>
-        <li>Scan timestamps</li>
-        <li>Detection confidence scores</li>
-        <li>Extracted flight information (flight numbers, dates) if detected</li>
-        <li>File metadata (type, size)</li>
-        <li>User preferences (e.g., files marked as "not a ticket")</li>
+        <li>Information about scanned files</li>
+        <li>File modification information</li>
+        <li>Scan history</li>
+        <li>Flight information if detected</li>
+        <li>File metadata</li>
+        <li>Your preferences (e.g., files marked as "not a ticket")</li>
     </ul>
     <p>
         <strong>Purpose:</strong> This data is used to:
     </p>
     <ul>
-        <li>Avoid re-scanning unchanged files (incremental scanning)</li>
+        <li>Efficiently scan your files without unnecessary re-processing</li>
         <li>Display scan results in the app</li>
         <li>Remember your preferences</li>
     </ul>
@@ -120,26 +117,17 @@
         When you delete a ticket, it is moved to a trash bin stored locally in the app's private directory. Trash items are automatically deleted after 30 days. You can restore deleted items from the trash bin before this automatic cleanup.
     </p>
 
-    <h3>4.3 Shared Preferences</h3>
+    <h3>4.3 App Settings</h3>
     <p>
-        The app uses Android's SharedPreferences to store:
+        The app stores app preferences and settings locally on your device.
     </p>
-    <ul>
-        <li>Onboarding completion status</li>
-        <li>Last trash cleanup timestamp</li>
-        <li>Other app state information</li>
-    </ul>
 
     <h2>5. Data Processing</h2>
     <p>
-        All data processing happens locally on your device using:
+        All data processing happens locally on your device. The app uses on-device text recognition and pattern matching to detect flight tickets and boarding passes.
     </p>
-    <ul>
-        <li><strong>Google ML Kit</strong>: For text recognition (OCR) and barcode scanning. ML Kit runs entirely on-device and does not send data to Google's servers.</li>
-        <li><strong>Local Pattern Matching</strong>: For detecting flight-related information in text and images.</li>
-    </ul>
     <p>
-        No files, images, or extracted text are ever sent to external servers or services.
+        No files, images, or extracted text are ever sent to external servers or services. All processing is done entirely on your device.
     </p>
 
     <h2>6. Data Sharing</h2>
@@ -147,7 +135,6 @@
         <strong>We do not share your data with anyone.</strong> All data remains on your device and is never transmitted, uploaded, or shared with third parties, including:
     </p>
     <ul>
-        <li>Google (except for ML Kit on-device processing, which does not send data to servers)</li>
         <li>Analytics services</li>
         <li>Advertising networks</li>
         <li>Social media platforms</li>
@@ -156,8 +143,8 @@
 
     <h2>7. Data Retention and Deletion</h2>
     <ul>
-        <li><strong>Scan Results:</strong> Stored locally until you uninstall the app or manually clear app data.</li>
-        <li><strong>Trash Bin:</strong> Deleted items are automatically removed after 30 days. You can also manually restore or permanently delete items.</li>
+        <li><strong>Scan Results:</strong> Stored locally until you uninstall the app or manually clear app data. You can also manually mark files as "not a ticket" to exclude them from results.</li>
+        <li><strong>Trash Bin:</strong> Deleted items are automatically removed after 30 days. You can also manually restore or permanently delete items from the trash bin at any time.</li>
         <li><strong>On App Uninstall:</strong> All app data, including the database, trash bin, and preferences, is automatically deleted by Android when you uninstall the app.</li>
     </ul>
 
@@ -200,9 +187,6 @@
         <p>
             <strong>Package Name:</strong> com.ticketcleaner.ticket_cleaner<br>
             <strong>Email:</strong> apargarg05@gmail.com
-        </p>
-        <p>
-            <em>Note: Please replace apargarg05@gmail.com with your actual contact email address before hosting this privacy policy.</em>
         </p>
     </div>
 
